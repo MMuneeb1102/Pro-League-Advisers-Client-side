@@ -1,0 +1,67 @@
+
+.button-52 {
+    font-size: 16px;
+    /* color: white; */
+    font-weight: 200;
+    letter-spacing: 1px;
+    padding: 13px 20px 13px;
+    outline: 0;
+    /* border: 1px solid white; */
+    cursor: pointer;
+    position: relative;
+    background-color: rgba(0, 0, 0, 0);
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    border-radius: 0px;
+  }
+  
+  .button-52:after {
+    content: "";
+    /* background-color: #006FD6; */
+    width: 100%;
+    z-index: -1;
+    position: absolute;
+    height: 100%;
+    top: 7px;
+    left: 7px;
+    transition: 0.2s;
+  }
+  
+  .sign-in-btn{
+      border: 1px solid white;
+      color: white;
+      margin-right: 40px;
+  }
+      
+  .sign-up-btn{
+      border: 1px solid #006FD6;
+      color: #006FD6;
+  }
+  
+  .sign-in-btn:after{
+      background-color: #006FD6 !important;
+  }
+  
+  .sign-up-btn:after{
+      background-color: white !important;
+  }
+  
+  .button-52:hover:after {
+    top: 0px;
+    left: 0px;
+  }
+  
+  @media (min-width: 768px) {
+    .button-52 {
+      padding: 10px 47px 5px;
+    }
+  }
+  @media (max-width: 344px) {
+    .acc-btn-div {
+      justify-content: space-between;
+   }
+    .sign-in-btn{
+      margin: 0px;      
+    }
+  }

@@ -1,34 +1,32 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
-
+import Navbar from './components/Navbar';
+import StateProvider from './context/StateProvider'
+import {BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Home from './pages/Home';
+import Signin from './pages/Signin';
+import ForgotPassword from './pages/ForgotPassword';
+import Signup from './pages/Signup';
+import TournamentEntry from './pages/TournamentEntry';
+import Footer from './components/Footer';
+import TournamentBracket from './pages/TournamentBracket';
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    <StateProvider>
+    <Router>
+        <Navbar/>
+        <Routes>
+          <Route exact path='/' element={<Home/>}/>
+          <Route exact path='/signin' element={<Signin/>}/>
+          <Route exact path='/signup' element={<Signup/>}/>
+          <Route exact path='/forgot-password' element={<ForgotPassword/>}/>
+
+
+          <Route exact path='/join-tournament' element={<TournamentEntry/>}/>
+          <Route exact path='/tournament-bracket/:id' element={<TournamentBracket/>}/>
+        </Routes>
+        <Footer/>
+      </Router>
+    </StateProvider>
   )
 }
 

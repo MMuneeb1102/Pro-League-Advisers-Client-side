@@ -1,0 +1,12 @@
+.nav-link{
+    color: white !important;
+}
+
+.navbar{
+    width: 100%;
+    position: absolute;
+    backdrop-filter: blur(10px);
+    background-color: #ffffff00 !important;
+    z-index: 9999;
+    top: 0px;
+}

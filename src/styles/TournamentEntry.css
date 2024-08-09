@@ -1,0 +1,68 @@
+.join-T-main-container{
+    /* position: absolute; */
+    /* top: 0px; */
+    color: white;
+}
+
+.img-container{
+    position: relative;
+}
+
+.img-container h1{
+    position: absolute;
+    bottom: 0px;
+    left: 152px;
+    margin: 0px;
+    padding: 0px;
+    line-height: 0.69;
+    color: white;
+}
+
+.img-container img{
+    width: 100%;
+}
+
+.form-container{
+    height: 70vh;
+    background: radial-gradient(circle, rgb(2, 4, 62) 0%, rgba(0,0,0,1) 100%);
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 0px 22px;
+}
+
+.form-container form{
+    width: 35%;
+    background-color: #00000063;
+    padding: 38px;
+    border-radius: 20px;
+}
+.entryFee-div{
+    display: flex;
+    margin-top: 18px;
+}
+
+.entryFee-div h4:first-child{
+    margin-right: 10px;
+}
+
+.join-btn-container{
+    margin-top: 14px;
+    width: 100%;
+}
+
+@media (max-width: 900px){
+    .controller-img-div{
+        display: none;
+    }
+
+    .form-container form{
+        width: 90%;
+    }
+}
+
+@media (max-width: 520px){
+    .img-container h1{
+        left: 10px;
+    }
+}
