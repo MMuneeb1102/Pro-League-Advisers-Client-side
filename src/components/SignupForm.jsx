@@ -1,24 +1,105 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from 'react-redux'
+import { updateConfirmPassword, updateEmail, updatePassword, updateUsername, updateFullname } from "../redux/slices/auth/signupSlice";
+import showPassword from "../js/ShowPassword";
+import Spinner from "./Spinner";
+import { signup } from "../redux/slices/auth/authThunk";
 
 const SignupForm = () => {
-    const [passwordCheckbox, setPasswordCheckbox] = useState(false);
-    const showPassword = () =>{
-        if(!passwordCheckbox){
-            setPasswordCheckbox(true);
-        }
-        else if(passwordCheckbox){
-            setPasswordCheckbox(false);
-        }
-        console.log(passwordCheckbox)
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+    const { email, fullname, username, password, confirmPassword, passwordCheckbox, isLoading } = useSelector((state)=>state.signup);
+
+    const handleOnChangeEmail = (e) =>{
+      dispatch(updateEmail(e.target.value));
     }
+
+    const handleOnChangeFullname = (e) =>{
+      dispatch(updateFullname(e.target.value));
+    }
+
+    const handleOnChangeUsername = (e) =>{
+      dispatch(updateUsername(e.target.value));
+    }
+
+    const handleOnChangePassword = (e) =>{
+      dispatch(updatePassword(e.target.value));
+    }
+
+    const handleOnChangeConfirmPassword = (e) =>{
+      dispatch(updateConfirmPassword(e.target.value));
+    }
+    
+    const signInSubmit = () =>{
+      const data = {
+        fullName: fullname, 
+        userName: username, 
+        email: email, 
+        password: password,
+        confirmPassword: confirmPassword
+      }
+
+      e.preventDefault();
+      const response = dispatch(signup(data))
+      console.log(response);
+      
+      if(signup.fulfilled.match(response)){
+        localStorage.setItem('auth-token', data.authtoken)
+        console.log(authtoken);
+        navigate('/');
+      }
+    }
+
   return (
     <div className='signin-container'>
       <div className='signin-box'>
         <div className='login-heading-div mb-5'>
           <h2>Sign up</h2>
         </div>
-        <form className='row g-3'>
+        <form className='row g-3' onSubmit={signInSubmit} >
+          <div className='col-12'>
+            <label
+              htmlFor='login-fullname'
+              className='login-input-label  form-label'
+            >
+              Full Name
+            </label>
+            <div className='login-input-div'>
+              <div className='login-input-span'></div>
+              <input
+                type='text'
+                value={fullname}
+                onChange={handleOnChangeFullname}
+                className='login-input-field '
+                id='login-fullname'
+                autoComplete="off"
+                placeholder="Enter your full name"
+                required
+              />
+            </div>
+          </div>
+          <div className='col-12'>
+            <label
+              htmlFor='login-username'
+              className='login-input-label  form-label'
+            >
+              Username
+            </label>
+            <div className='login-input-div'>
+              <div className='login-input-span'></div>
+              <input
+                type='text'
+                value={username}
+                onChange={handleOnChangeUsername}
+                className='login-input-field '
+                id='login-username'
+                autoComplete="off"
+                placeholder="@username"
+                required
+              />
+            </div>
+          </div>
           <div className='col-12'>
             <label
               htmlFor='login-email'
@@ -30,9 +111,13 @@ const SignupForm = () => {
               <div className='login-input-span'></div>
               <input
                 type='email'
+                onChange={handleOnChangeEmail}
+                value={email}
                 className='login-input-field '
                 id='login-email'
                 placeholder='xyz@example.com'
+                autoComplete="off"
+                required
               />
             </div>
           </div>
@@ -49,6 +134,10 @@ const SignupForm = () => {
                 type={passwordCheckbox ? 'text' : 'password'}
                 className='login-input-field'
                 id='login-password'
+                value={password}
+                onChange={handleOnChangePassword}
+                placeholder="Enter your password"
+                required
               />
             </div>
           </div>
@@ -65,6 +154,10 @@ const SignupForm = () => {
                 type={passwordCheckbox ? 'text' : 'password'}
                 className='login-input-field'
                 id='login-confirm-password'
+                value={confirmPassword}
+                onChange={handleOnChangeConfirmPassword}
+                placeholder="Enter password again"
+                required
               />
             </div>
           </div>
@@ -78,7 +171,7 @@ const SignupForm = () => {
                 type='checkbox'
                 value={passwordCheckbox}
                 id='showPass'
-                onClick={showPassword}
+                onClick={()=>{showPassword(passwordCheckbox, dispatch)}}
               />
               <label className='form-check-label' htmlFor='showPass'>
                 Show Password
@@ -95,6 +188,9 @@ const SignupForm = () => {
               Sign up
             </button>
           </div>
+          {isLoading && <div className="Spinner-div">
+          <Spinner/>
+          </div>}
         </form>
       </div>
     </div>

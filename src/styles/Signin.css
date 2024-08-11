@@ -31,7 +31,7 @@
 
 .signin-box{
     color: white;
-    width: 429px;
+    width: 454px;
     padding: 61px 35px;
     /* backdrop-filter: blur(10px); */
     background-color: rgba(0, 0, 0, 0.3);
@@ -48,6 +48,10 @@
     width: 100%;
 }
 
+.login-input-field::placeholder{
+    color: rgb(202, 202, 202);
+}
+
 .login-input-div{
     display: flex;
 }
@@ -60,5 +64,9 @@
 
 .forgot-pass-div{
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
+}
+
+.Spinner-div{
+    margin-left: 20px;
 }

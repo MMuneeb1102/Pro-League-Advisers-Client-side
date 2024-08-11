@@ -19,9 +19,9 @@
     z-index: 9999;
     color: white;
     background-color: #0000005c;
-    width: 490px;
-    border-radius: 32px;
-    padding: 34px;
+    width: 592px;
+    border-radius: 50px;
+    padding: 52px;
     margin: 0px 60px;
     backdrop-filter: blur(2px);
 }

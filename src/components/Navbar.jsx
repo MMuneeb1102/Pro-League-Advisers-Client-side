@@ -2,6 +2,8 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import '../styles/Navbar.css'
 import logo from '../assets/logo.png';
+import profileImg from '../assets/Profile.png'
+import NavDropDown from './NavDropDown';
 
 const Navbar = () => {
   return (
@@ -14,7 +16,7 @@ const Navbar = () => {
     <div className="collapse navbar-collapse" id="navbarSupportedContent">
       <ul className="navbar-nav me-auto mb-2 mb-lg-0">
         <li className="nav-item">
-          <Link className="nav-link active" aria-current="page" to="/">Home</Link>
+          <Link className="nav-link active" aria-current="page" to="/" id='home-link'>Home</Link>
         </li>
         <li className="nav-item">
           <Link className="nav-link" to="#">Games</Link>
@@ -23,15 +25,16 @@ const Navbar = () => {
           <Link className="nav-link" to="#">Tournaments</Link>
         </li>
         <li className="nav-item">
-          <Link className="nav-link" to="#">About</Link>
+          <Link className="nav-link" to="#" id='about-link'>About</Link>
         </li>
-      
-
       </ul>
-      <form className="d-flex" role="search">
-        <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
-        <button className="btn btn-outline-success" type="submit">Search</button>
-      </form>
+      <div className="">
+        <div className='profileDiv'>
+        <i className="fa-solid fa-user profile-icon" style={{fontSize: '1.4em'}}></i>
+          <Link className='nav-signin-link'>Sign in</Link>
+          {/* <NavDropDown/> */}
+        </div>
+      </div>
     </div>
   </div>
 </nav>
