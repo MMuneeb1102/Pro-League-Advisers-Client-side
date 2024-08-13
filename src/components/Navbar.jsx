@@ -1,11 +1,21 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import '../styles/Navbar.css'
 import logo from '../assets/logo.png';
-import profileImg from '../assets/Profile.png'
 import NavDropDown from './NavDropDown';
+import { useDispatch, useSelector } from 'react-redux';
+import { getUser } from '../redux/slices/auth/authThunk';
+import Cookies from 'universal-cookie';
 
 const Navbar = () => {
+  const cookies = new Cookies();
+  const dispatch = useDispatch();
+  const authToken = cookies.get('auth-token')
+
+  // useEffect(()=>{
+  // const authToken = cookies.get('auth-token')
+  // }, [authToken])
+
   return (
     <nav className="navbar navbar-expand-lg bg-body-tertiary">
   <div className="container-fluid">
@@ -30,9 +40,8 @@ const Navbar = () => {
       </ul>
       <div className="">
         <div className='profileDiv'>
-        <i className="fa-solid fa-user profile-icon" style={{fontSize: '1.4em'}}></i>
-          <Link className='nav-signin-link'>Sign in</Link>
-          {/* <NavDropDown/> */}
+        <i className="fa-solid fa-user profile-icon" style={{fontSize: '1.4em'}}></i> 
+          <NavDropDown/>
         </div>
       </div>
     </div>

@@ -5,11 +5,15 @@ import { updateConfirmPassword, updateEmail, updatePassword, updateUsername, upd
 import showPassword from "../js/ShowPassword";
 import Spinner from "./Spinner";
 import { signup } from "../redux/slices/auth/authThunk";
+import Cookies from "universal-cookie";
 
 const SignupForm = () => {
+  const cookies = new Cookies();
   const navigate = useNavigate();
   const dispatch = useDispatch();
     const { email, fullname, username, password, confirmPassword, passwordCheckbox, isLoading } = useSelector((state)=>state.signup);
+
+    const mystate = useSelector((state)=>state.signup);
 
     const handleOnChangeEmail = (e) =>{
       dispatch(updateEmail(e.target.value));
@@ -31,7 +35,8 @@ const SignupForm = () => {
       dispatch(updateConfirmPassword(e.target.value));
     }
     
-    const signInSubmit = () =>{
+    const signInSubmit = async (e) =>{
+      e.preventDefault();
       const data = {
         fullName: fullname, 
         userName: username, 
@@ -39,14 +44,14 @@ const SignupForm = () => {
         password: password,
         confirmPassword: confirmPassword
       }
-
-      e.preventDefault();
-      const response = dispatch(signup(data))
-      console.log(response);
       
-      if(signup.fulfilled.match(response)){
-        localStorage.setItem('auth-token', data.authtoken)
-        console.log(authtoken);
+      const newresponse = await dispatch(signup(data))
+      console.log(newresponse)
+      if(newRes.type === 'auth/create-user/fulfilled'){
+        cookies.set('auth-token', newresponse.payload.authtoken, {
+          expires: new Date(Date.now() + 2592000000)
+      });
+        console.log(newresponse.payload.authtoken);
         navigate('/');
       }
     }

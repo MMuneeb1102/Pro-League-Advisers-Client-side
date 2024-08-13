@@ -1,13 +1,17 @@
 import React, { useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
+import Cookies from 'universal-cookie';
 import { updateEmail, updatePassword } from "../redux/slices/auth/signinSlice";
 import showPassword from "../js/ShowPassword";
 import Spinner from "./Spinner";
+import { signIn } from "../redux/slices/auth/authThunk";
 
 const SigninForm = () => {
+  const cookies = new Cookies();
+  const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { email, password } = useSelector((state) => state.signin);
+  const { email, password, isLoading } = useSelector((state) => state.signin);
   const passwordCheckbox = useSelector((state) => state.signup.passwordCheckbox);
   
   const handleOnChangeEmail = (e) => {
@@ -18,6 +22,25 @@ const SigninForm = () => {
     dispatch(updatePassword(e.target.value));
   };
 
+  const handleSignin = async (e) =>{
+    e.preventDefault();
+    const data = {
+      email: email,
+      password: password
+    }
+    const newRes = await dispatch(signIn(data))
+    if(newRes.type === 'auth/login/fulfilled'){
+      cookies.set('auth-token', newRes.payload.authtoken, {
+          expires: new Date(Date.now() + 2592000000)
+      });
+      console.log(cookies.get('auth-token'))
+      navigate('/')
+    }
+    else if(newRes.type === 'auth/login/rejected'){
+      console.log(newRes.payload);
+    }
+  }
+
 
   return (
     <div className='signin-container'>
@@ -25,7 +48,7 @@ const SigninForm = () => {
         <div className='login-heading-div mb-5'>
           <h2>Sign in</h2>
         </div>
-        <form className='row g-3'>
+        <form className='row g-3' onSubmit={handleSignin}>
           <div className='col-12'>
             <label
               htmlFor='login-email'
@@ -55,7 +78,7 @@ const SigninForm = () => {
             <div className='login-input-div'>
               <div className='login-input-span'></div>
               <input
-                type='password'
+                type={passwordCheckbox ? 'text' : 'password'}
                 className='login-input-field'
                 id='login-password'
                 value={password}
@@ -94,9 +117,9 @@ const SigninForm = () => {
               Sign in
             </button>
           </div>
-          <div className="Spinner-div">
+          {isLoading && <div className="Spinner-div">
           <Spinner/>
-          </div>
+          </div>}
         </form>
       </div>
     </div>
