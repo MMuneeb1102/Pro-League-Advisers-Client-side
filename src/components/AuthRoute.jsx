@@ -8,11 +8,7 @@ const AuthRoute = (Component) => {
         const isAuthenticated = cookies.get('auth-token');
         const location = useLocation();
 
-        if(isAuthenticated && location.pathname === '/signin' || isAuthenticated && location.pathname === '/signup'){
-            return <Navigate to={'/'}/>
-        }
-
-        if(!isAuthenticated && !location.pathname === '/signin'){
+        if(!isAuthenticated){
             return <Navigate to="/signin" />;
         }
 

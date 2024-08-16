@@ -1,7 +1,7 @@
 import './App.css'
 import Navbar from './components/Navbar';
 import StateProvider from './context/StateProvider'
-import {BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from './pages/Home';
 import Signin from './pages/Signin';
 import ForgotPassword from './pages/ForgotPassword';
@@ -14,14 +14,17 @@ import { useEffect, useState } from 'react';
 import Cookies from 'universal-cookie';
 import { getUser } from './redux/slices/auth/authThunk';
 import AuthRoute from './components/AuthRoute';
+import TournamentLists from './pages/TournamentLists';
+import RestrictNavigation from './components/RestrictNavigation';
 
 function App() {
   const cookies = new Cookies();
   const dispatch = useDispatch();
   const isLoading = useSelector((state) => state.user.isLoading);
   const token = cookies.get('auth-token');
-  const AuthSignin = AuthRoute(Signin);
-  const AuthSignup = AuthRoute(Signup);
+  const AuthSignin = RestrictNavigation(Signin);
+  const AuthSignup = RestrictNavigation(Signup);
+  const AuthTournamentEntry = AuthRoute(TournamentEntry);
 
   useEffect(()=>{
     const checkingAuth = async () =>{
@@ -39,11 +42,12 @@ function App() {
         <Routes>
           <Route exact path='/signin' element={<AuthSignin/>}/>
           <Route exact path='/signup' element={<AuthSignup/>}/>
-
-          <Route exact path='/' element={<Home/>}/>
           <Route exact path='/forgot-password' element={<ForgotPassword/>}/>
 
-          <Route exact path='/join-tournament' element={<TournamentEntry/>}/>
+          <Route exact path='/' element={<Home/>}/>
+
+          <Route exact path='/tournaments' element={<TournamentLists/>}/>
+          <Route exact path='/join-tournament/:id' element={<AuthTournamentEntry/>}/>
           <Route exact path='/tournament-bracket/:id' element={<TournamentBracket/>}/>
         </Routes>
         <Footer/>

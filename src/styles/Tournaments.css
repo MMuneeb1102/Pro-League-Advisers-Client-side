@@ -1,0 +1,85 @@
+.card-container{
+    background-image: url('../assets/eafc-card.png');
+    width: 533px;
+    height: 361px;
+    border-radius: 20px;
+    position: relative;
+}
+
+.tournament-info-container{
+    position: absolute;
+    bottom: 0px;
+    padding: 20px 63px;
+    width: 100%;
+    /* backdrop-filter: blur(10px); */
+    border-radius: 0px 0px 20px 20px;
+    display: flex;
+    flex-direction: column;
+    background-color: #000000a8;
+}
+
+.tour-heading-div{
+    display: flex;
+    justify-content: space-between;
+}
+.tour-date-div{
+    display: flex;
+}
+
+.tour-date{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #9d9d9dd6;
+}
+
+.tour-date-div p{
+    padding: 0px 12px;
+    margin: 0px;
+    font-size: 16px;
+}
+
+.tour-heading-div h5{
+    margin: 0px;
+    font-size: 25px;
+}
+
+.more-details p{
+    font-size: 18px;
+    margin: 0px;
+}
+
+.more-details {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    
+}
+
+.tr-row{
+    display: flex;
+    justify-content: space-between;
+}
+
+.tournament-item {
+    flex: 1 1 calc(50% - 40px); /* Two columns with space between them */
+    display: flex;
+    justify-content: center;
+    box-sizing: border-box;
+  }
+
+  .arrow-icon{
+    font-size: 40px;
+    padding: 0px 28px;
+  }
+
+  .arrow-icon:hover{
+    color: #646cff;
+    cursor: pointer;
+  }
+
+  @media (max-width: 700px){
+    .more-details{
+        flex-wrap: wrap;
+    }
+  }

@@ -1,11 +1,11 @@
 import React from 'react'
 import '../styles/Signin.css'
 
-const InputFieldLayput = ({type, id, placeholder}) => {
+const InputFieldLayput = ({type, id, placeholder, value, required, onChange}) => {
   return (
     <div className="login-input-div">
         <div className='login-input-span'></div>
-        <input type={type} className="login-input-field " id={id} placeholder={placeholder}/>
+        <input type={type} onChange={onChange} className="login-input-field " id={id} placeholder={placeholder} value={value} required={required}/>
     </div>
   )
 }

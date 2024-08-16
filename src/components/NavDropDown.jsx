@@ -4,6 +4,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux';
 import Cookies from 'universal-cookie';
 import { resetData } from '../redux/slices/user/userSlice';
+import { setMyTournament } from '../redux/slices/tournament/tournamentSlice';
 
 const NavDropDown = () => {
     const cookies = new Cookies();
@@ -15,6 +16,7 @@ const NavDropDown = () => {
     const handleLogout = (e) =>{
         e.preventDefault();
         dispatch(resetData());
+        dispatch(setMyTournament());
         document.body.style.overflow = '';
         cookies.remove('auth-token');
         navigate('/')

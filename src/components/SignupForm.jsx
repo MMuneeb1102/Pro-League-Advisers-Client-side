@@ -47,7 +47,7 @@ const SignupForm = () => {
       
       const newresponse = await dispatch(signup(data))
       console.log(newresponse)
-      if(newRes.type === 'auth/create-user/fulfilled'){
+      if(newresponse.type === 'auth/create-user/fulfilled'){
         cookies.set('auth-token', newresponse.payload.authtoken, {
           expires: new Date(Date.now() + 2592000000)
       });

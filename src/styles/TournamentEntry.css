@@ -23,7 +23,7 @@
 }
 
 .form-container{
-    height: 70vh;
+    /* height: 70vh; */
     background: radial-gradient(circle, rgb(2, 4, 62) 0%, rgba(0,0,0,1) 100%);
     display: flex;
     justify-content: space-around;
@@ -66,3 +66,5 @@
         left: 10px;
     }
 }
+
+
