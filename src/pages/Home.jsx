@@ -27,7 +27,7 @@ const Home = () => {
         <p style={{fontSize: '20px'}}>Level up your game, own the arena! Join the ultimate gaming showdown at Pro League Advisers – <b>Where Champions Rise!</b></p>
         {authToken ? <div className="acc-btn-div mt-3">
           <button className='button-52 sign-in-btn'>My Profile</button>
-          <button  className='button-52 sign-up-btn'>My Tournaments</button>
+          <button className='button-52 sign-up-btn' onClick={()=>{navigate('/mytournaments')}}>My Tournaments</button>
         </div> 
         : 
         <div className="acc-btn-div mt-3">

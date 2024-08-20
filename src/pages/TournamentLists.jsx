@@ -17,6 +17,7 @@ const TournamentLists = () => {
   useEffect(()=>{
     const fetchingTournaments = async () =>{
       await dispatch(fetchTournaments());
+      console.log(tournaments)
       if(cookies.get('auth-token')){
         const response = await dispatch(fetchMyTournament());
       
@@ -27,16 +28,16 @@ const TournamentLists = () => {
 
   return (
     <TournamentLayout Heading="Tournaments" Img={TournamentsImg}>
-      <div className='container'>
+      <div className='container list-container' style={{overflow: 'hidden'}}>
         <div className="row tr-row">
-        {tournaments.map((data, index)=>(
+          {tournaments.length === 0 && <h4>No data found</h4>}
+        {tournaments.length !== 0 && tournaments.map((data, index)=>(
           <div className="tournament-item mb-5" key={index}>
-            <TournamentCard data={data} t_id={myTournament?._id}/>
+            <TournamentCard data={data} t_id={myTournament}/>
           </div>
         ))}
         </div>
       </div>
-
     </TournamentLayout>
   )
 }

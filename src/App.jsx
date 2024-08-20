@@ -16,6 +16,7 @@ import { getUser } from './redux/slices/auth/authThunk';
 import AuthRoute from './components/AuthRoute';
 import TournamentLists from './pages/TournamentLists';
 import RestrictNavigation from './components/RestrictNavigation';
+import MyTournaments from './pages/MyTournaments';
 
 function App() {
   const cookies = new Cookies();
@@ -47,6 +48,7 @@ function App() {
           <Route exact path='/' element={<Home/>}/>
 
           <Route exact path='/tournaments' element={<TournamentLists/>}/>
+          <Route exact path='/mytournaments' element={<MyTournaments/>}/>
           <Route exact path='/join-tournament/:id' element={<AuthTournamentEntry/>}/>
           <Route exact path='/tournament-bracket/:id' element={<TournamentBracket/>}/>
         </Routes>

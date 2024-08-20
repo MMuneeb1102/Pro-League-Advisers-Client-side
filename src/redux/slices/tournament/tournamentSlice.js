@@ -33,6 +33,10 @@ const tournamentSlice = createSlice({
         setPlatformId : (state, action)=>{
             state.platform.platformId = action.payload
         },
+        resetPlatformData: (state) =>{
+            state.platform.platformId = ''
+            state.platform.platformName = ''
+        }
     },
     extraReducers: (builder)=>{
         //Fetching all the tournaments cases

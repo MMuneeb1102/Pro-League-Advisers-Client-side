@@ -34,7 +34,7 @@ const TournamentEntry = () => {
         const res = await dispatch(joinTournament(data));
         console.log(res)
         if(res.type === 'tournament/join/fulfilled'){
-            console.log(joined)
+            console.log('joined')
             setShowModal(true);
         }
     }
