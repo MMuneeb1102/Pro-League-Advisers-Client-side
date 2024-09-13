@@ -29,14 +29,14 @@ const Navbar = () => {
           <Link className="nav-link active" aria-current="page" to="/" id='home-link'>Home</Link>
         </li>
         <li className="nav-item">
-          <Link className="nav-link" to="#">Games</Link>
+          <Link className="nav-link" to="/games">Games</Link>
         </li>
         <li className="nav-item">
           <Link className="nav-link" to="/tournaments">Tournaments</Link>
         </li>
-        <li className="nav-item">
+        {/* <li className="nav-item">
           <Link className="nav-link" to="#" id='about-link'>About</Link>
-        </li>
+        </li> */}
       </ul>
       <div className="">
         <div className='profileDiv'>

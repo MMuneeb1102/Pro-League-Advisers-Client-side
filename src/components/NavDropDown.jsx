@@ -35,7 +35,7 @@ const NavDropDown = () => {
                     <i className="fa-solid fa-angle-down"></i>
                 </span>
             <ul className="dropdown">
-                <li className='dr-items'><Link to="#">My Profile</Link></li>
+                <li className='dr-items'><Link to="/myprofile">My Profile</Link></li>
                 <li className='dr-items'><Link to="#">Manage Team</Link></li>
                 <li className='dr-items'><Link onClick={handleLogout}>Logout</Link></li>
             </ul>

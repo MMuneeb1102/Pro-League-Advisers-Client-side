@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import '../styles/TournamentBracket.css'
-const SingleBracket = ({team1, team2, team1Score, team2Score, team1Abb, team2Abb}) => {
+const SingleBracket = ({team1, team2, team1Score, team2Score, team1Abb, team2Abb, btnStatus}) => {
     const getCurrentDate = () => {
         const date = new Date();
         const day = String(date.getDate()).padStart(2, '0'); // Add leading zero if necessary
@@ -13,6 +13,7 @@ const SingleBracket = ({team1, team2, team1Score, team2Score, team1Abb, team2Abb
     useEffect(()=>{
         getCurrentDate();
     }, [])
+    
   return (
     <div className="tournament-bracket__match" tabIndex="0">
         <table className="tournament-bracket__table">
@@ -45,6 +46,9 @@ const SingleBracket = ({team1, team2, team1Score, team2Score, team1Abb, team2Abb
             </td>
             </tr>
         </tbody>
+        {/* {btnStatus && <div className='mt-3' style={{display: 'flex', justifyContent: 'end'}}>
+            <button style={{backgroundColor: '#5576d5cc', color: 'white'}}>Start</button>
+        </div>} */}
         </table>
     </div>
   )

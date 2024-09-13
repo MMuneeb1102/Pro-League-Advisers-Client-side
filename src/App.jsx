@@ -17,6 +17,9 @@ import AuthRoute from './components/AuthRoute';
 import TournamentLists from './pages/TournamentLists';
 import RestrictNavigation from './components/RestrictNavigation';
 import MyTournaments from './pages/MyTournaments';
+import PrivateMatch from './pages/PrivateMatch';
+import GameSection from './pages/GameSection';
+import Profile from './pages/Profile';
 
 function App() {
   const cookies = new Cookies();
@@ -26,6 +29,9 @@ function App() {
   const AuthSignin = RestrictNavigation(Signin);
   const AuthSignup = RestrictNavigation(Signup);
   const AuthTournamentEntry = AuthRoute(TournamentEntry);
+  const AuthTournamentBracket = AuthRoute(TournamentBracket);
+  const AuthPrivateMatch = AuthRoute(PrivateMatch);
+  const AuthProfile = AuthRoute(Profile);
 
   useEffect(()=>{
     const checkingAuth = async () =>{
@@ -47,10 +53,14 @@ function App() {
 
           <Route exact path='/' element={<Home/>}/>
 
+          <Route exact path='/games' element={<GameSection/>}/>
           <Route exact path='/tournaments' element={<TournamentLists/>}/>
+          <Route exact path='/myprofile' element={<AuthProfile/>}/>
           <Route exact path='/mytournaments' element={<MyTournaments/>}/>
           <Route exact path='/join-tournament/:id' element={<AuthTournamentEntry/>}/>
-          <Route exact path='/tournament-bracket/:id' element={<TournamentBracket/>}/>
+          <Route exact path='/tournament-bracket/:id' element={<AuthTournamentBracket/>}/>
+          {/* <Route exact path='/tournament/match/:id' element={<AuthPrivateMatch/>}/> */}
+          <Route exact path='/tournament/match' element={<AuthPrivateMatch/>}/>
         </Routes>
         <Footer/>
       </Router>

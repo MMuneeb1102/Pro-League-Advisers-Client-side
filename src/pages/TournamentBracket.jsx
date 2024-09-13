@@ -2,21 +2,31 @@ import React, { useEffect, useState } from 'react'
 import '../styles/TournamentBracket.css'
 import SingleBracket from '../components/SingleBracket'
 import { useParams } from 'react-router-dom';
+import Cookies from 'universal-cookie';
+import { useDispatch, useSelector } from 'react-redux';
+import { getUser } from '../redux/slices/auth/authThunk';
 
 const TournamentBracket = () => {
+  const cookies = new Cookies();
     const apiUrl = 'http://localhost:5000';
-    const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjZhZmI2OTliZjU1YjBkMDc1ZjY4ZWM5In0sImlhdCI6MTcyMjc5MzQ1NH0.ov6ut2HpgPwNiBS1gn1p8oyo1aqGujcp0Ou9z8CyRzg';
-
+    const token = cookies.get('auth-token')
+    const dispatch = useDispatch()
+    const [startButtonStatus, setStartButtonStatus] = useState(false);
     const {id} = useParams();
     const [tournament, setTournament] = useState({});
     const [participants, setParticipants] = useState([]);
     const [matches, setMatches] = useState([]);
+    const userId = useSelector((state)=> state.user.data?._id);
 
+    const getUserData = async () =>{
+      await dispatch(getUser());
+    }
+    
     useEffect(()=>{
         const getTournament = async () =>{
             try {
                 console.log(id)
-              const response = await fetch(`${apiUrl}/api/admin/tournament/get-tournament-details/${id}`, {
+              const response = await fetch(`${apiUrl}/api/tournament/get-tournament-details/${id}`, {
                 method: "GET",
                   headers: {
                     "Content-Type": "application/json",
@@ -37,7 +47,17 @@ const TournamentBracket = () => {
             }
           }
           getTournament();
+          getUserData();
     }, [])
+
+    const checkStatus = (index) =>{
+      if(matches[index].player1.id === userId || matches[index].player2.id === userId){
+        return true;
+      }
+      else{
+        return false;
+      }
+    }
 
   return (
     <div className='bracket-main-container'>
@@ -48,18 +68,18 @@ const TournamentBracket = () => {
             <h3 className="tournament-bracket__round-title">Round of 8</h3>
             <ul className="tournament-bracket__list">
                 <li className="tournament-bracket__item">
-                    <SingleBracket  team1={matches[0]?.player1?.platformUsername} team2={matches[0]?.player2?.platformUsername} team1Abb={matches[0]?.player1?.platformUsername} team2Abb={matches[0]?.player2?.platformUsername} team1Score={matches[0]?.player1?.score}  team2Score={matches[0]?.player2?.score} />
+                    <SingleBracket team1={matches[0]?.player1?.platformUsername} team2={matches[0]?.player2?.platformUsername} team1Abb={matches[0]?.player1?.platformUsername} team2Abb={matches[0]?.player2?.platformUsername} team1Score={matches[0]?.player1?.score}  team2Score={matches[0]?.player2?.score} btnStatus = {checkStatus(0)} />
                 </li>
 
                 <li className="tournament-bracket__item">
-                    <SingleBracket  team1={matches[1]?.player1?.platformUsername} team2={matches[1]?.player2?.platformUsername} team1Abb={matches[1]?.player1?.platformUsername} team2Abb={matches[1]?.player2?.platformUsername} team1Score={matches[1]?.player1?.score}  team2Score={matches[1]?.player2?.score} />
+                    <SingleBracket  team1={matches[1]?.player1?.platformUsername} team2={matches[1]?.player2?.platformUsername} team1Abb={matches[1]?.player1?.platformUsername} team2Abb={matches[1]?.player2?.platformUsername} team1Score={matches[1]?.player1?.score}  team2Score={matches[1]?.player2?.score} btnStatus = {checkStatus(1)}/>
                 </li>
                 <li className="tournament-bracket__item">
-                    <SingleBracket  team1={matches[2]?.player1?.platformUsername} team2={matches[2]?.player2?.platformUsername} team1Abb={matches[2]?.player1?.platformUsername} team2Abb={matches[2]?.player2?.platformUsername} team1Score={matches[2]?.player1?.score}  team2Score={matches[2]?.player2?.score} />
+                    <SingleBracket  team1={matches[2]?.player1?.platformUsername} team2={matches[2]?.player2?.platformUsername} team1Abb={matches[2]?.player1?.platformUsername} team2Abb={matches[2]?.player2?.platformUsername} team1Score={matches[2]?.player1?.score}  team2Score={matches[2]?.player2?.score} btnStatus = {checkStatus(2)} />
                 </li>
 
                 <li className="tournament-bracket__item">
-                    <SingleBracket  team1={matches[3]?.player1?.platformUsername} team2={matches[3]?.player2?.platformUsername} team1Abb={matches[3]?.player1?.platformUsername} team2Abb={matches[3]?.player2?.platformUsername} team1Score={matches[3]?.player1?.score}  team2Score={matches[3]?.player2?.score} />
+                    <SingleBracket  team1={matches[3]?.player1?.platformUsername} team2={matches[3]?.player2?.platformUsername} team1Abb={matches[3]?.player1?.platformUsername} team2Abb={matches[3]?.player2?.platformUsername} team1Score={matches[3]?.player1?.score}  team2Score={matches[3]?.player2?.score} btnStatus = {checkStatus(3)} />
                 </li>
             </ul>
             </div>
@@ -67,11 +87,11 @@ const TournamentBracket = () => {
             <h3 className="tournament-bracket__round-title">Semifinals</h3>
             <ul className="tournament-bracket__list">
                 <li className="tournament-bracket__item">
-                    <SingleBracket  team1={matches[4]?.player1?.platformUsername} team2={matches[4]?.player2?.platformUsername} team1Abb={matches[4]?.player1?.platformUsername} team2Abb={matches[4]?.player2?.platformUsername} team1Score={matches[4]?.player1?.score}  team2Score={matches[4]?.player2?.score} />
+                    <SingleBracket  team1={matches[4]?.player1?.platformUsername} team2={matches[4]?.player2?.platformUsername} team1Abb={matches[4]?.player1?.platformUsername} team2Abb={matches[4]?.player2?.platformUsername} team1Score={matches[4]?.player1?.score}  team2Score={matches[4]?.player2?.score} btnStatus = {checkStatus(4)}/>
                 </li>
 
                 <li className="tournament-bracket__item">
-                    <SingleBracket  team1={matches[5]?.player1?.platformUsername} team2={matches[5]?.player2?.platformUsername} team1Abb={matches[5]?.player1?.platformUsername} team2Abb={matches[5]?.player2?.platformUsername} team1Score={matches[5]?.player1?.score}  team2Score={matches[5]?.player2?.score} />
+                    <SingleBracket  team1={matches[5]?.player1?.platformUsername} team2={matches[5]?.player2?.platformUsername} team1Abb={matches[5]?.player1?.platformUsername} team2Abb={matches[5]?.player2?.platformUsername} team1Score={matches[5]?.player1?.score}  team2Score={matches[5]?.player2?.score} btnStatus = {checkStatus(5)}/>
                 </li>
             </ul>
             </div>
@@ -79,7 +99,7 @@ const TournamentBracket = () => {
             <h3 className="tournament-bracket__round-title">Final</h3>
             <ul className="tournament-bracket__list">
                 <li className="tournament-bracket__item">
-                    <SingleBracket  team1={matches[6]?.player1?.platformUsername} team2={matches[6]?.player2?.platformUsername} team1Abb={matches[6]?.player1?.platformUsername} team2Abb={matches[6]?.player2?.platformUsername} team1Score={matches[6]?.player1?.score}  team2Score={matches[6]?.player2?.score} />
+                    <SingleBracket  team1={matches[6]?.player1?.platformUsername} team2={matches[6]?.player2?.platformUsername} team1Abb={matches[6]?.player1?.platformUsername} team2Abb={matches[6]?.player2?.platformUsername} team1Score={matches[6]?.player1?.score}  team2Score={matches[6]?.player2?.score} btnStatus = {checkStatus(6)}/>
                 </li>
             </ul>
             </div>

@@ -10,6 +10,7 @@ import Modal from '../components/Modal';
 import { fetchSpecificTournament, joinTournament } from '../redux/slices/tournament/tournamentThunk';
 import { useNavigate, useParams } from 'react-router-dom';
 import Spinner from '../components/Spinner';
+import { io } from 'socket.io-client';
 
 const TournamentEntry = () => {
     const navigate = useNavigate();
@@ -19,10 +20,23 @@ const TournamentEntry = () => {
     const isLoading = useSelector((state)=> state.tournament.isLoading)
     const submitLoading = useSelector((state)=> state.tournament.submitLoading)
     const [showModal, setShowModal] = useState(false);
+    const [socket, setSocket] = useState(null);
 
     useEffect(()=>{
         dispatch(fetchSpecificTournament(t_id.id))
     }, [])
+
+
+    useEffect(() => {
+      // Create socket connection
+      const socketConnection = io('http://localhost:5000'); // Adjust the URL if necessary
+      setSocket(socketConnection);
+
+      // Cleanup on component unmount
+      return () => {
+        socketConnection.disconnect();
+      };
+    }, []);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -34,7 +48,10 @@ const TournamentEntry = () => {
         const res = await dispatch(joinTournament(data));
         console.log(res)
         if(res.type === 'tournament/join/fulfilled'){
-            console.log('joined')
+          if (socket) {
+            socket.emit('joinTournament', t_id.id);
+            console.log('Joined tournament:', t_id.id);
+          }
             setShowModal(true);
         }
     }

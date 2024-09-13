@@ -83,6 +83,7 @@
   left: 0px;
 }
 
+
 @media (min-width: 768px) {
   .button-52 {
     padding: 10px 47px 5px;
@@ -96,6 +97,8 @@
     margin: 0px;      
   }
 }
+
+
 
 @media (max-width: 632px){
     .account-div{

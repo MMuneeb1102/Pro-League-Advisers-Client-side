@@ -1,7 +1,8 @@
 import React from 'react'
 import '../styles/Tournaments.css'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 const TournamentCard = ({data, t_id}) => {
+  const navigate = useNavigate();
   const renderActionButton = () => {
     if (!t_id) {
         // Case: Tournament ID is not found
@@ -15,7 +16,7 @@ const TournamentCard = ({data, t_id}) => {
     }
     else if(t_id && t_id._id === data._id){
       // Case: Tournament ID is found
-      return t_id.status === 'started' ? <button>Start</button> : <h5>Joined</h5>
+      return t_id.status === 'started' ? <button onClick={()=>{navigate(`/tournament-bracket/${t_id._id}`)}}>Start</button> : <h5>Joined</h5>
     
       
       // if (t_id._id === data._id && t_id.status !== 'started') {
